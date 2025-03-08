@@ -1,22 +1,20 @@
 
-# Salve a Terra!
+# Nome do Jogo: Fashion Boy
 
 ## Contexto
-Steven tem que defender a Terra. Usando seu escudo, evite que as pedras caiam no chão.
+Você está procurando por estilo... colete as melhores peças da moda atualmente e se torne um cara estiloso!
 
 ## Controles
-O jogo pode ser jogado usando as setas do teclado, direita e esquerda.
+Setas do teclado, movimentação simples para a direita e esquerda.
 
 ## Regras do Jogo
-- Use as setas para mover o personagem.
-- Não deixe as pedras tocarem no chão.
-- Colete pedras para ganhar pontos.
-- Power-up aparece a cada 25 pontos (ao coletar, você controla outra versão do Steven, que é mais rápido).
-- Você tem duas vidas.
+- Com apenas duas vidas, você deve coletar o máximo de roupas possível para seu personagem se tornar o mais estiloso da moda.
+- Se você coletar roupas o suficiente, um power-up aparece e você vê o quão ficou estiloso!
+- Utilize as setas de direta e esquerda do teclado para movimentação do personagem.
 
 ## Links
-- [Código no GitHub (Individual)](https://github.com/Kaian-Moura/prof-cristiano/tree/main/salveaterra)
-- [Versão Jogável no GitHub Pages](https://kaian-moura.github.io/prof-cristiano/salveaterra/game.html)
+- [Código no GitHub (Individual)](https://github.com/celsick/benites/edit/main/atividade4_individual/)
+- [Versão Jogável no GitHub Pages](https://celsick.github.io/benites/atividade4_individual/game.html)
 
 ## Como jogar?
-Na tela inicial, há um ícone de "?" que explica como jogar.
+Na tela inicial, clique em instruções para mais informações de como jogar o jogo.
