@@ -111,7 +111,7 @@ ______
 ```javascript
 let lista = ["banana", "maçã", "uva", "laranja"];
 lista.splice(1, 2, "abacaxi", "manga");
-console.log(lista);
+    console.log(lista);
 ```
 
 a) ["banana", "maçã", "uva", "abacaxi", "manga", "laranja"]
@@ -214,7 +214,7 @@ function somaArray(numeros) {
 console.log(somaArray([1, 2, 3, 4]));
 ```
 
-**Resposta:***
+**Resposta:**
 
 ```javascript
 function somaArray(numeros) {
@@ -235,3 +235,45 @@ ______
 - Uma classe `Livro` que herda de `Produto` e modifica o método `calcularDesconto()`, aplicando um desconto de 20% no preço dos livros.
 
 Explique como funciona a herança nesse contexto e como você implementaria a modificação do método na classe `Livro`.
+
+**Resposta:**
+
+```javascript
+// Classe Produto com atributos nome e preço
+class Produto {
+  constructor(nome, preco) {
+    this.nome = nome; // Define o nome do produto
+    this.preco = preco; // Define o preço do produto
+  }
+
+  // Método que aplica 10% de desconto no preço do produto
+  calculardesconto() {
+    return this.preco * 0.9; // Corrigido: Multiplica o preço por 0.9 (10% de desconto)
+  }
+}
+
+// Classe Livro que herda de Produto
+class Livro extends Produto {
+  constructor(nome, preco) {
+    // Usa o super para puxar nome e preço da classe pai (Produto)
+    super(nome, preco);
+  }
+
+  // Sobrescreve o método calculardesconto da classe pai
+  calculardesconto() {
+    // Chama o método da classe pai (10% de desconto) e aplica mais 10% do preço original
+    return this.preco * 0.8; // Aplica diretamente 20% de desconto no preço do livro
+  }
+}
+
+// Criação de um produto normal
+const produto1 = new Produto("Mouse Gamer", 120);
+// Exibe o preço do produto com 10% de desconto
+console.log("Seu produto com 10% de desconto:", produto1.calculardesconto());
+
+// Criação de um livro
+const livro1 = new Livro("Lógica de Programação", 60);
+// Exibe o preço do livro com 20% de desconto
+console.log("Seu livro com 20% de desconto:", livro1.calculardesconto());
+```
+**Explicação: A herança nesse contexto funciona pois a classe Livro aproveita tudo o que a classe Produto já tem — como os atributos nome e preço — sem precisar reescrever eles. Nós Usamos extends Produto para indicar que Livro é uma versão especializada de Produto. No construtor da classe Livro, o super() chama o construtor da classe pai para garantir que o nome e o preço sejam configurados corretamente. Depois, para modificar o comportamento do método calculardesconto(), reescrevemos ele dentro da classe Livro... e isso é chamado de sobrescrita de método, o que permite que o livro tenha um desconto diferente, o de 20% sem alterar o comportamento dos outros produtos, que continuam com o desconto original de 10%. Isso mostra bem como a herança ajuda a reaproveitar código e, ao mesmo tempo, personalizar só o que for necessário.**
