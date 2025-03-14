@@ -213,6 +213,21 @@ function somaArray(numeros) {
 }
 console.log(somaArray([1, 2, 3, 4]));
 ```
+
+**Resposta:***
+
+```javascript
+function somaArray(numeros) {
+
+  var soma = 0; // #Erro 1: Criação da variável que antes não estava declarada
+
+  for (i = 0; i < numeros.length; i++) { // #Erro 2: numeros.size não é definido em JavaScript. o correto é .length
+    soma += 2 * numeros[i]; // #Erro 3: O valor de soma não estava sendo acumulado
+  }
+  return soma;
+}
+console.log(somaArray([1, 2, 3, 4]));
+```
 ______
 10) Crie um exemplo prático no qual você tenha duas classes:
 
