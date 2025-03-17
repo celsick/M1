@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício do Alien</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      // Define as dimensões do jogo
+      const larguraJogo = 700;
+      const alturaJogo = 850;
+
+      // Configuração do jogo com Phaser
+      const config = {
+        type: Phaser.AUTO,
+        width: larguraJogo,
+        height: alturaJogo,
+
+        // Ativando a física no jogo
+        physics: {
+          default: "arcade", // Corrigido de 'defaut' para 'default'
+          arcade: {
+            gravity: { y: 300 },
+            debug: true,
+          },
+        },
+
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+
+      // Inicializa o jogo com a configuração definida
+      const game = new Phaser.Game(config);
+
+      var alien;
+      var teclado;
+      var fogo;
+      var plataforma;
+      var moeda;
+      var pontuacao = 0;
+      var placar;
+
+      // Função chamada antes do jogo começar para carregar imagens e outros recursos
+      function preload() {
+        this.load.image("background", "assets/bg.jpeg");
+        this.load.image("player", "assets/peterpan.png");
+        this.load.image("brilho", "assets/brilho.png");
+        this.load.image("plataforma", "assets/tijolos.png");
+        this.load.image("moeda", "assets/coin.png");
+      }
+
+      // Função chamada assim que o jogo é criado
+      function create() {
+        // Adiciona a imagem de fundo do jogo, centralizada na tela
+        this.add.image(larguraJogo / 2, alturaJogo / 2, "background");
+
+        // Adiciona o "foguinho" do modo turbo
+        fogo = this.add.sprite(0, 0, "brilho");
+        fogo.setVisible(false);
+        fogo.setScale(0.3);
+
+        // Cria o alienígena
+        alien = this.physics.add.sprite(larguraJogo / 2, 0, "player");
+        alien.setScale(0.3);
+        alien.setCollideWorldBounds(true);
+
+        // configura a movimentação do jogo
+        teclado = this.input.keyboard.createCursorKeys();
+
+        // Adiciona a plataforma
+        plataforma = this.physics.add.staticImage(
+          larguraJogo / 2,
+          alturaJogo / 2 + 50,
+          "plataforma"
+        );
+        this.physics.add.collider(alien, plataforma);
+
+        // Adiciona a moeda
+        moeda = this.physics.add.sprite(larguraJogo / 2, 0, "moeda");
+        moeda.setCollideWorldBounds(true);
+        moeda.setBounce(0.7);
+        this.physics.add.collider(moeda, plataforma);
+        moeda.setScale(0.1);
+
+        // Adiciona o placar
+        placar = this.add.text(50, 50, "Moedas:" + pontuacao, {fontSize:"45px", fill:"495613"});
+
+        // Quando o alien enconstar na moeda...
+        this.physics.add.overlap(alien, moeda, function() {
+            moeda.setVisible(false); // moeda fica "invisível"
+            var posicaoMoeda_Y = Phaser.Math.RND.between(50, 650); // sorteia número
+            moeda.setPosition(posicaoMoeda_Y, 100); // ajusta a posição da moeda
+            pontuacao += 1; // soma pontuação
+            placar.setText("Moedas:" + pontuacao); // atualiza o texto do placar
+            moeda.setVisible(true); // ativa a visão da "nova moeda"
+        })
+      }
+
+      // Função chamada repetidamente para atualizar o jogo
+      function update() {
+        // Movimento para a esquerda [ <- ]
+        if (teclado.left.isDown) {
+          alien.setVelocityX(-150);
+        }
+
+        // Movimento para a direita [ -> ]
+        else if (teclado.right.isDown) {
+          alien.setVelocityX(150);
+        }
+
+        // Sem movimento horizontal [ x = 0 ]
+        else {
+          alien.setVelocityX(0);
+        }
+
+        // Movimento para cima [ ^ ]
+        if (teclado.up.isDown) {
+          alien.setVelocityY(-150);
+          ativarTurbo();
+        }
+
+        // Movimento para baixo [ gravidade em y ]
+        else {
+          // ação da gravidade do jogo em y
+          semTurbo();
+        }
+
+        // Atualiza a posição do "foguinho" em relação ao alien
+        fogo.setPosition(alien.x + 10, alien.y + alien.height / 15);
+      }
+
+      function ativarTurbo() {
+        fogo.setVisible(true);
+      }
+
+      function semTurbo() {
+        fogo.setVisible(false);
+      }
+    </script>
+  </body>
+</html>
