@@ -63,6 +63,7 @@ class fashionBoy extends Phaser.Scene {
   // Pré-carregamento de recursos
   preload() {
     this.load.image("bg", "img/fundo2.jpeg");
+    this.load.image("bg1", "img/fundo3.jpeg");
     this.load.image("player", "img/player.png");
     this.load.image("playerPowerUp", "img/player2.png");
     this.load.image("roupa1", "img/roupa1.png");
@@ -76,7 +77,11 @@ class fashionBoy extends Phaser.Scene {
   // Criação de elementos e configurações iniciais da cena
   create() {
     // 1) Adiciona a imagem de fundo
-    this.bg.obj = this.add.image(this.bg.x, this.bg.y, "bg").setOrigin(0, 0);
+    if(game.scale.orientation === Phaser.Scale.LANDSCAPE){
+      this.bg.obj = this.add.image(this.bg.x, this.bg.y, "bg").setOrigin(0, 0);
+    } else if (game.scale.orientation === Phaser.Scale.PORTRAIT){
+      this.bg1.obj = this.add.image(this.bg1.x, this.bg1.y, "bg1").setOrigin(0, 0);
+    }
 
     // 2) Adiciona jogador e suas propriedades físicas
     this.player.obj = this.physics.add
