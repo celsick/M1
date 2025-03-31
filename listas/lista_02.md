@@ -245,6 +245,27 @@ Pedidos entre R$50,00 e R$199,99 (inclusive) → "Frete com custo adicional!"
 Pedidos de R$200,00 ou mais → "Frete grátis!"
 ```
 Implemente um pseudocódigo que receba o valor total da compra e exiba a classificação correta do frete para o cliente.
+
+```javascript
+// Definindo os preços dos produtos
+var precoProduto = [120, 45, 80, 150, 5];
+
+// Loop para verificar cada produto
+for (var i = 0; i < precoProduto.length; i++) {
+    // Verifica se o preço do produto é inferior a 50
+    if (precoProduto[i] < 50) {
+        console.log('Frete não Disponível');  // Se for menor que 50, o frete não está disponível
+    } 
+    // Verifica se o preço do produto é igual ou superior a 100
+    else if (precoProduto[i] >= 100) {
+        console.log('Frete Grátis');  // Se for maior ou igual a 100, o frete é grátis
+    } 
+    // Caso o preço do produto seja entre 50 e 100
+    else {
+        console.log('Frete com custo adicional');  // Se estiver entre 50 e 100, há um custo adicional para o frete
+    }
+}
+```
 ______
 
 **8)** Considere a implementação da classe base Veiculo em um sistema de modelagem de veículos. Sua tarefa é implementar, utilizando pseudocódigo, as classes derivadas Carro e Moto, que herdam da classe Veiculo, adicionando atributos específicos e métodos para calcular o consumo de combustível de um carro e de uma moto, respectivamente.
@@ -262,6 +283,53 @@ Método CalcularConsumo():
 ```
 Implementação genérica para cálculo de consumo, a ser sobrescrita pelas subclasses.
 Agora, implemente as classes Carro e Moto, garantindo que ambas herdem de Veiculo e possuam métodos específicos para calcular o consumo de combustível com base na quilometragem e eficiência do veículo.
+
+```javascript
+class Veiculo {
+    constructor(modelo, ano) {
+        this.modelo = modelo;
+        this.ano = ano;
+    }
+
+    calcularConsumo() {
+        // Método abstrato, que será sobrescrito nas classes derivadas
+        throw new Error("Método 'calcularConsumo' deve ser implementado nas classes derivadas.");
+    }
+}
+
+class Carro extends Veiculo {
+    constructor(modelo, ano, quilometragem, eficiencia) {
+        super(modelo, ano);
+        this.quilometragem = quilometragem;
+        this.eficiencia = eficiencia; // Eficiência em km/l
+    }
+
+    calcularConsumo() {
+        // Calcula o consumo de combustível para o carro
+        return this.quilometragem / this.eficiencia;
+    }
+}
+
+class Moto extends Veiculo {
+    constructor(modelo, ano, quilometragem, eficiencia) {
+        super(modelo, ano);
+        this.quilometragem = quilometragem;
+        this.eficiencia = eficiencia; // Eficiência em km/l
+    }
+
+    calcularConsumo() {
+        // Calcula o consumo de combustível para a moto
+        return this.quilometragem / this.eficiencia;
+    }
+}
+
+// Exemplo de uso:
+let carro = new Carro("Fusca", 1985, 500, 10);
+console.log(`Consumo do carro: ${carro.calcularConsumo()} litros`);
+
+let moto = new Moto("Honda CG", 2020, 200, 30);
+console.log(`Consumo da moto: ${moto.calcularConsumo()} litros`);
+```
 ______
 
 **9)** Você é um cientista da NASA e está ajudando no desenvolvimento de um sistema de pouso para sondas espaciais em Marte. Seu objetivo é calcular o tempo necessário para que a sonda reduza sua velocidade até um nível seguro para pouso, considerando uma velocidade inicial de entrada na atmosfera marciana e uma taxa de desaceleração constante causada pelo atrito atmosférico e retrofoguetes.
@@ -275,6 +343,22 @@ Considere a fórumla de atualização velocidade:
     velocidade = velocidadeInicial - desaceleracao * tempo
 ```
 Seu programa deve determinar quanto tempo será necessário para que a sonda atinja uma velocidade segura de pouso, sem ultrapassar os limites estabelecidos.
+
+```javascript
+FUNÇÃO calcularTempoPouso(velocidadeInicial, desaceleracao, limiteVelocidade, velocidadeSegura, tempoMaximo):
+    tempoTotal <- 0
+    velocidadeAtual <- velocidadeInicial
+
+    ENQUANTO velocidadeAtual > velocidadeSegura E tempoTotal < tempoMaximo FAÇA:
+        velocidadeAtual <- velocidadeAtual - desaceleracao
+        tempoTotal <- tempoTotal + 1
+
+    SE velocidadeAtual <= velocidadeSegura ENTÃO
+        EXIBIR "A sonda atingiu a velocidade segura para o pouso em " + tempoTotal + " segundos."
+    SENÃO
+        EXIBIR "Atenção! Tempo máximo para o pouso foi excedido, tornando-o inseguro."
+    FIM DA FUNÇÂO
+```
 ______
 
 **10)** Em um sistema de análise financeira, as operações de investimento de uma empresa podem ser representadas por matrizes, onde cada linha representa um tipo de investimento e cada coluna representa um período de tempo.
@@ -307,3 +391,25 @@ Escrever("Total de investimentos acumulados:")
 ImprimirMatriz(totalInvestimentos)  
 ```
 Agora, implemente a função MultiplicarMatrizesInvestimento(matrizA, matrizB), que multiplica as duas matrizes, simulando o efeito de diferentes fatores de crescimento e impacto financeiro nos investimentos ao longo do tempo.
+
+```javascript
+FUNÇÃO multiplicarMatrizes(matrizA, matrizB):
+    linhasA <- obterTamanho(matrizA, "linhas")
+    colunasA <- obterTamanho(matrizA, "colunas")
+    linhasB <- obterTamanho(matrizB, "linhas")
+    colunasB <- obterTamanho(matrizB, "colunas")
+
+    SE colunasA ≠ linhasB ENTÃO
+        Retornar "Erro: as matrizes possuem dimensões incompatíveis para multiplicação."
+
+    matrizResultado <- criarMatrizVazia(linhasA, colunasB)
+
+    PARA i DE 0 ATÉ linhasA - 1 FAÇA:
+        PARA j DE 0 ATÉ colunasB - 1 FAÇA:
+            acumulador <- 0
+            PARA k DE 0 ATÉ colunasA - 1 FAÇA:
+                acumulador <- acumulador + matrizA[i][k] * matrizB[k][j]
+            matrizResultado[i][j] <- acumulador
+
+    Retornar matrizResultado
+```
